@@ -1,0 +1,29 @@
+# Ignore IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment and config overrides
+.env
+config.local.php
+
+# Logs
+*.log
+error_log
+
+# Dependencies (if using composer in future)
+/vendor/
+
+# Uploaded files (if any)
+/uploads/
+
+# Temporary files
+*.tmp
+*.bak
