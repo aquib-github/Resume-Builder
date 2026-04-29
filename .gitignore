@@ -1,4 +1,4 @@
-# Ignore IDE and editor files
+# IDE and editor files
 .idea/
 .vscode/
 *.swp
@@ -10,7 +10,7 @@
 Thumbs.db
 desktop.ini
 
-# Environment and config overrides
+# Environment and sensitive config
 .env
 config.local.php
 
@@ -18,12 +18,15 @@ config.local.php
 *.log
 error_log
 
-# Dependencies (if using composer in future)
+# Dependencies
 /vendor/
 
-# Uploaded files (if any)
+# Uploaded files
 /uploads/
 
 # Temporary files
 *.tmp
 *.bak
+
+# Gemini AI context
+.gemini/

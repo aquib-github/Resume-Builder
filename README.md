@@ -35,51 +35,63 @@ A PHP-based web application that allows users to create, manage, and export prof
 
 ```
 resumebuilder/
-├── actions/                    # Backend action handlers (form processing)
-│   ├── addeducation.action.php
-│   ├── addexperience.action.php
-│   ├── addskills.action.php
-│   ├── changebackground.action.php
-│   ├── changefont.action.php
-│   ├── changepassword.action.php
-│   ├── clonecv.action.php
-│   ├── createresume.action.php
-│   ├── deleteeducation.action.php
-│   ├── deleteexperince.action.php
-│   ├── deleteresume.action.php
-│   ├── deleteskill.action.php
-│   ├── login.action.php
-│   ├── logout.action.php
-│   ├── register.action.php
-│   ├── sendcode.action.php
-│   ├── updateprofile.action.php
-│   ├── updateresume.action.php
-│   └── verifyotp.action.php
-├── assets/
-│   ├── class/                  # Core PHP classes
-│   │   ├── database.class.php  # Database connection (MySQLi)
-│   │   └── function.class.php  # Helper functions (auth, session, etc.)
-│   ├── images/                 # Static images
-│   │   ├── logo.png
-│   │   └── tiles/              # Background tile patterns
-│   ├── includes/               # Shared page components
-│   │   ├── header.php
-│   │   ├── navbar.php
-│   │   └── footer.php
-│   └── packages/
-│       └── phpmailer/          # PHPMailer library
-├── account.php                 # User profile/account page
-├── change-password.php         # Change password page
-├── createresume.php            # Create new resume form
-├── forgot-password.php         # Forgot password page
-├── login.php                   # Login page
-├── myresumes.php               # Dashboard — list all resumes
-├── register.php                # Registration page
-├── resume.php                  # Resume preview/print/download
-├── resumebuilder.sql           # Database schema (clean, no data)
-├── updateresume.php            # Edit resume with sections
-├── verification.php            # OTP verification page
-└── README.md
+├── index.php                           # Root redirector (guest → home, auth → dashboard)
+├── app/
+│   ├── bootstrap.php                   # Loads session, config, database, helpers
+│   ├── core/
+│   │   ├── config.php                  # BASE_URL and timezone settings
+│   │   ├── database.php                # MySQLi connection class
+│   │   └── functions.php               # Auth, session, redirect, and XSS helpers
+│   ├── components/
+│   │   ├── header.php                  # Shared HTML head (CSS, favicon)
+│   │   ├── footer.php                  # Shared scripts and flash messages
+│   │   └── navbar.php                  # Top nav for authenticated pages
+│   ├── actions/
+│   │   ├── auth/                       # Auth actions (login, register, logout, OTP)
+│   │   │   ├── login.action.php
+│   │   │   ├── register.action.php
+│   │   │   ├── logout.action.php
+│   │   │   ├── sendcode.action.php
+│   │   │   ├── verifyotp.action.php
+│   │   │   ├── changepassword.action.php
+│   │   │   └── updateprofile.action.php
+│   │   └── resume/                     # Resume actions (CRUD, clone, customize)
+│   │       ├── createresume.action.php
+│   │       ├── updateresume.action.php
+│   │       ├── deleteresume.action.php
+│   │       ├── clonecv.action.php
+│   │       ├── addexperience.action.php
+│   │       ├── deleteexperience.action.php
+│   │       ├── addeducation.action.php
+│   │       ├── deleteeducation.action.php
+│   │       ├── addskills.action.php
+│   │       ├── deleteskill.action.php
+│   │       ├── changebackground.action.php
+│   │       └── changefont.action.php
+│   └── database/
+│       └── schema.sql                  # Database schema (tables only, no data)
+├── public/
+│   ├── home.php                        # Landing page for guests
+│   ├── assets/
+│   │   ├── css/style.css               # Custom styles
+│   │   └── images/
+│   │       ├── logo.png
+│   │       └── tiles/                  # Background tile patterns (23 tiles)
+│   └── pages/
+│       ├── public/                     # Guest-only pages
+│       │   ├── login.php
+│       │   ├── register.php
+│       │   ├── forgot-password.php
+│       │   └── verification.php
+│       └── internal/                   # Auth-only pages
+│           ├── myresumes.php           # Dashboard
+│           ├── createresume.php
+│           ├── updateresume.php
+│           ├── resume.php              # Preview, print, PDF export
+│           ├── account.php
+│           └── change-password.php
+└── vendor/
+    └── phpmailer/                      # PHPMailer library
 ```
 
 ---
@@ -100,7 +112,6 @@ resumebuilder/
 
 2. **Move to XAMPP htdocs**
    ```bash
-   # Copy or move the project folder to:
    C:\xampp\htdocs\resumebuilder
    ```
 
@@ -110,35 +121,22 @@ resumebuilder/
 
 4. **Create the database**
    - Open [phpMyAdmin](http://localhost/phpmyadmin)
-   - Import the `resumebuilder.sql` file:
-     - Click **Import** tab → Choose `resumebuilder.sql` → Click **Go**
+   - Import `app/database/schema.sql`:
+     - Click **Import** tab → Choose `schema.sql` → Click **Go**
    - This creates the `resumebuilder` database with all required tables
 
 5. **Configure database connection** (if needed)
-   - Edit `assets/class/database.class.php`
+   - Edit `app/core/database.php`
    - Update host, username, password, and database name if different from defaults
 
-6. **Configure email (for password reset)**
-   - Edit `actions/sendcode.action.php`
+6. **Configure email** (for password reset)
+   - Edit `app/actions/auth/sendcode.action.php`
    - Update the SMTP username and app password with your own Gmail credentials
 
 7. **Open in browser**
    ```
-   http://localhost/resumebuilder/login.php
+   http://localhost/resumebuilder/
    ```
-
----
-
-## 📸 Screenshots
-
-| Page | Screenshot |
-|------|-----------|
-| Login | ![Login Page](screenshots/login.png) |
-| Dashboard | ![Dashboard](screenshots/dashboard.png) |
-| Create Resume | ![Create Resume](screenshots/create.png) |
-| Resume Preview | ![Resume Preview](screenshots/preview.png) |
-
-> **Note:** Add your own screenshots to a `screenshots/` folder in the project root.
 
 ---
 
@@ -149,7 +147,6 @@ resumebuilder/
 - **Session Security** — Session regeneration on login, proper session cleanup on logout
 - **Ownership Verification** — All CRUD operations verify the logged-in user owns the resource
 - **Input Validation** — Server-side validation on all form submissions
-- **Whitelisted Values** — Font and background changes are validated against allowed lists
 
 ---
 
@@ -160,8 +157,6 @@ resumebuilder/
 - [ ] Support multiple resume templates/themes
 - [ ] Add profile photo upload
 - [ ] Implement rate limiting on login and OTP endpoints
-- [ ] Add admin panel for user management
-- [ ] Support multi-language resumes
 - [ ] Move SMTP credentials to a `.env` configuration file
 - [ ] Add resume sharing via public URL with privacy controls
 
