@@ -114,6 +114,27 @@ CREATE TABLE `skills` (
   CONSTRAINT `fk_skills_resume` FOREIGN KEY (`resume_id`) REFERENCES `resumes` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uploaded_resumes`
+--
+
+CREATE TABLE `uploaded_resumes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `resume_title` varchar(250) NOT NULL,
+  `file_path` varchar(250) NOT NULL,
+  `file_type` varchar(50) NOT NULL,
+  `slug` varchar(250) NOT NULL,
+  `updated_at` int(20) NOT NULL,
+  `background` varchar(250) NOT NULL DEFAULT 'tile1.png',
+  `font` varchar(250) NOT NULL DEFAULT '\'Assistant\', sans-serif',
+  PRIMARY KEY (`id`),
+  KEY `fk_uploaded_resumes_user` (`user_id`),
+  CONSTRAINT `fk_uploaded_resumes_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

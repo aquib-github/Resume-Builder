@@ -8,6 +8,7 @@ A PHP-based web application that allows users to create, manage, and export prof
 
 - **User Authentication** — Register, login, logout, and password reset via email OTP
 - **Resume CRUD** — Create, read, update, and delete resumes
+- **Upload Resume** — Upload existing PDF/DOC/DOCX resumes directly to your dashboard
 - **Resume Sections** — Personal info, objective, experience, education, skills, and declaration
 - **Clone Resume** — Duplicate an existing resume with one click
 - **PDF Export** — Download resume as a PDF file
@@ -59,6 +60,8 @@ resumebuilder/
 │   │       ├── createresume.action.php
 │   │       ├── updateresume.action.php
 │   │       ├── deleteresume.action.php
+│   │       ├── uploadresume.action.php
+│   │       ├── deleteuploadedresume.action.php
 │   │       ├── clonecv.action.php
 │   │       ├── addexperience.action.php
 │   │       ├── deleteexperience.action.php
@@ -88,6 +91,7 @@ resumebuilder/
 │           ├── createresume.php
 │           ├── updateresume.php
 │           ├── resume.php              # Preview, print, PDF export
+│           ├── viewuploaded.php        # Viewer for uploaded resumes
 │           ├── account.php
 │           └── change-password.php
 └── vendor/
