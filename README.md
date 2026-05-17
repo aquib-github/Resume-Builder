@@ -162,7 +162,6 @@ resumebuilder/
 - [ ] Support multiple resume templates/themes
 - [ ] Add profile photo upload
 - [ ] Implement rate limiting on login and OTP endpoints
-- [x] Move SMTP credentials to a `.env` configuration file
 - [ ] Add resume sharing via public URL with privacy controls
 
 ---
@@ -175,4 +174,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to open an issue or submit a pull request.
+Contributions, issues, and feature requests are welcome! Feel free to open an issue or submit a pull request. 
