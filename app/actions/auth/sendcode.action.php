@@ -24,17 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail = new PHPMailer(true);
 
             try {
-                // Server settings
                 $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
+                $mail->Host       = $_ENV['MAIL_HOST']     ?? 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'your-email@gmail.com';
-                $mail->Password   = 'your-gmail-app-password';
+                $mail->Username   = $_ENV['MAIL_USERNAME'] ?? '';
+                $mail->Password   = $_ENV['MAIL_PASSWORD'] ?? '';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                $mail->Port       = 465;
+                $mail->Port       = (int)($_ENV['MAIL_PORT'] ?? 465);
 
-                // Recipients
-                $mail->setFrom('your-email@gmail.com', 'Resume Builder');
+                $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'] ?? '', $_ENV['MAIL_FROM_NAME'] ?? 'Resume Builder');
                 $mail->addAddress($email_id);
 
                 // Content

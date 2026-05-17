@@ -1,16 +1,21 @@
 <?php
-// Database Connection — update credentials below if needed
+// Database Connection — credentials loaded from .env
 
 class Database
 {
-    private $host     = 'localhost';
-    private $username = 'root';
-    private $password = '';
-    private $database = 'resumebuilder';
-    private $db       = null;
+    private $host;
+    private $username;
+    private $password;
+    private $database;
+    private $db = null;
 
     public function __construct()
     {
+        $this->host     = $_ENV['DB_HOST']     ?? 'localhost';
+        $this->username = $_ENV['DB_USERNAME']  ?? 'root';
+        $this->password = $_ENV['DB_PASSWORD']  ?? '';
+        $this->database = $_ENV['DB_NAME']      ?? 'resumebuilder';
+
         $this->db = new mysqli($this->host, $this->username, $this->password, $this->database);
 
         if ($this->db->connect_error) {

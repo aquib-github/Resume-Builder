@@ -125,13 +125,14 @@ resumebuilder/
      - Click **Import** tab → Choose `schema.sql` → Click **Go**
    - This creates the `resumebuilder` database with all required tables
 
-5. **Configure database connection** (if needed)
-   - Edit `app/core/database.php`
-   - Update host, username, password, and database name if different from defaults
-
-6. **Configure email** (for password reset)
-   - Edit `app/actions/auth/sendcode.action.php`
-   - Update the SMTP username and app password with your own Gmail credentials
+5. **Configure environment**
+   - Copy `.env.example` to `.env`
+   ```bash
+   cp .env.example .env
+   ```
+   - Open `.env` and fill in your values:
+     - `DB_*` — your database credentials (defaults work for a standard XAMPP install)
+     - `MAIL_*` — your Gmail address and [App Password](https://support.google.com/accounts/answer/185833)
 
 7. **Open in browser**
    ```
@@ -157,7 +158,7 @@ resumebuilder/
 - [ ] Support multiple resume templates/themes
 - [ ] Add profile photo upload
 - [ ] Implement rate limiting on login and OTP endpoints
-- [ ] Move SMTP credentials to a `.env` configuration file
+- [x] Move SMTP credentials to a `.env` configuration file
 - [ ] Add resume sharing via public URL with privacy controls
 
 ---
